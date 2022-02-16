@@ -14,6 +14,6 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     public String register(@RequestBody RegistrationRequest request){
-        return RegistrationService.register(request);
+        return registrationService.register(request);
     }
 }
