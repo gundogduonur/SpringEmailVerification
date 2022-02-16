@@ -1,4 +1,4 @@
-package com.onurgundogdu.emailverify.appuser;
+package com.onurgundogdu.emailverify.role;
 
 public enum AppUserRole {
     USER,

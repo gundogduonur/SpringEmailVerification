@@ -1,5 +1,6 @@
-package com.onurgundogdu.emailverify.appuser;
+package com.onurgundogdu.emailverify.entity;
 
+import com.onurgundogdu.emailverify.role.AppUserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
