@@ -1,7 +1,5 @@
-package com.onurgundogdu.emailverify.token;
+package com.onurgundogdu.emailverify.entity;
 
-import com.onurgundogdu.emailverify.entity.AppUser;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,11 +25,11 @@ public class ConfirmationToken {
 
     @ManyToOne
     @JoinColumn(nullable = false,name = "app_user_id")
-    private AppUser user;
+    private User user;
 
     public ConfirmationToken(String token, LocalDateTime createdTime,
                              LocalDateTime expiredTime,
-                             LocalDateTime confirmedTime,AppUser user) {
+                             LocalDateTime confirmedTime, User user) {
         this.token = token;
         this.createdTime = createdTime;
         this.expiredTime = expiredTime;

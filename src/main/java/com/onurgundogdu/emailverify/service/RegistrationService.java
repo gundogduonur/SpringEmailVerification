@@ -1,8 +1,8 @@
 package com.onurgundogdu.emailverify.service;
 
-import com.onurgundogdu.emailverify.entity.AppUser;
+import com.onurgundogdu.emailverify.entity.User;
 import com.onurgundogdu.emailverify.request.RegistrationRequest;
-import com.onurgundogdu.emailverify.role.AppUserRole;
+import com.onurgundogdu.emailverify.role.UserRole;
 import com.onurgundogdu.emailverify.validation.EmailValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class RegistrationService {
 
-    private final AppUserService userService;
+    private final UserService userService;
     private final EmailValidator emailValidator;
 
     public  String register(RegistrationRequest request) {
@@ -20,11 +20,11 @@ public class RegistrationService {
         {
             throw new IllegalStateException("Email not valid.");
         }
-        return userService.signUpUser(new AppUser(request.getFirstname(),
+        return userService.signUpUser(new User(request.getFirstname(),
                 request.getLastname(),
                 request.getEmail(),
                 request.getPassword(),
-                AppUserRole.USER
+                UserRole.USER
                 ));
     }
 }

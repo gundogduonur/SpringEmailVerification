@@ -1,6 +1,6 @@
 package com.onurgundogdu.emailverify.entity;
 
-import com.onurgundogdu.emailverify.role.AppUserRole;
+import com.onurgundogdu.emailverify.role.UserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.Collections;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class AppUser implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @SequenceGenerator(sequenceName = "user_sequence",name = "user_sequence",allocationSize = 1)
@@ -29,22 +29,22 @@ public class AppUser implements UserDetails {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
-    private AppUserRole appUserRole;
+    private UserRole userRole;
     private Boolean locked=false;
     private Boolean enabled=false;
 
-    public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
+    public User(String firstName, String lastName, String email, String password, UserRole userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.appUserRole = appUserRole;
+        this.userRole = userRole;
 
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority grantedAuthority=new SimpleGrantedAuthority(appUserRole.name());
+        SimpleGrantedAuthority grantedAuthority=new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(grantedAuthority);
     }
 

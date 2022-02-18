@@ -1,6 +1,6 @@
 package com.onurgundogdu.emailverify.service;
 
-import com.onurgundogdu.emailverify.entity.AppUser;
+import com.onurgundogdu.emailverify.entity.User;
 import com.onurgundogdu.emailverify.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class AppUserService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     private static final String USER_NOT_FOUND_MSG="User with email %s not found";
     private final UserRepository userRepository;
@@ -22,7 +22,7 @@ public class AppUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG,email)));
     }
-    public String signUpUser(AppUser user){
+    public String signUpUser(User user){
         boolean userExist=userRepository.findByEmail(user.getEmail())
                 .isPresent();
         if(userExist)
