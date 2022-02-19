@@ -29,7 +29,7 @@ public class ConfirmationToken {
 
     public ConfirmationToken(String token, LocalDateTime createdTime,
                              LocalDateTime expiredTime,
-                             LocalDateTime confirmedTime, User user) {
+                             User user) {
         this.token = token;
         this.createdTime = createdTime;
         this.expiredTime = expiredTime;

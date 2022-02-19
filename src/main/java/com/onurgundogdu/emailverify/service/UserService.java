@@ -1,5 +1,6 @@
 package com.onurgundogdu.emailverify.service;
 
+import com.onurgundogdu.emailverify.entity.ConfirmationToken;
 import com.onurgundogdu.emailverify.entity.User;
 import com.onurgundogdu.emailverify.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
@@ -16,6 +20,7 @@ public class UserService implements UserDetailsService {
     private static final String USER_NOT_FOUND_MSG="User with email %s not found";
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder cryptPasswordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
 
 
     @Override
@@ -34,7 +39,17 @@ public class UserService implements UserDetailsService {
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
-        return "works";
+
+        String token=UUID.randomUUID().toString();
+
+        ConfirmationToken confirmationToken=new ConfirmationToken (
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user
+        );
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        return token;
     }
     
 }
