@@ -1,6 +1,6 @@
 package com.onurgundogdu.emailverify.security.config;
 
-import com.onurgundogdu.emailverify.service.UserService;
+import com.onurgundogdu.emailverify.service.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+    private final AppUserService appUserService;
     private final BCryptPasswordEncoder cryptPasswordEncoder;
 
     @Override
@@ -39,7 +39,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
         provider.setPasswordEncoder(cryptPasswordEncoder);
-        provider.setUserDetailsService(userService);
+        provider.setUserDetailsService(appUserService);
         return  provider;
     }
 }
