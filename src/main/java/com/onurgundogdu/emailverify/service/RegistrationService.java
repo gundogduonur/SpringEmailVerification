@@ -1,5 +1,6 @@
 package com.onurgundogdu.emailverify.service;
 
+import com.onurgundogdu.emailverify.email.EmailSender;
 import com.onurgundogdu.emailverify.entity.ConfirmationToken;
 import com.onurgundogdu.emailverify.entity.User;
 import com.onurgundogdu.emailverify.request.RegistrationRequest;
@@ -18,6 +19,7 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
+    private final EmailSender emailSender;
 
     public  String register(RegistrationRequest request) {
         boolean isValidEmail=emailValidator.test(request.getEmail());
@@ -31,6 +33,12 @@ public class RegistrationService {
                 request.getPassword(),
                 UserRole.USER
                 ));
+        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        emailSender.send(
+                request.getEmail(),
+                buildEmail(request.getFirstName(), link));
+
+        return token;
     }
 
     @Transactional
